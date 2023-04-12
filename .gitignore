@@ -1,2 +1,4 @@
 photo-sharing-frontend/node_modules
 photo-sharing-frontend/.env
+photo-sharing-backend/.env
+photo-sharing-backend/node_modules
