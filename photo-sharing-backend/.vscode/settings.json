@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/883d256f-cadd-4d81-a0ff-e2a0be04b4e9/AppServices/subscriptions/883d256f-cadd-4d81-a0ff-e2a0be04b4e9/resourceGroups/photo-sharing-backend-rg/providers/Microsoft.Web/sites/photo-sharing-backend",
+  "appService.deploySubpath": "."
+}

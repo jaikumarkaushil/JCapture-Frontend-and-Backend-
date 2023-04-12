@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/74a4b104-2535-4c8f-8047-55c8de717fe1/AppServices/subscriptions/74a4b104-2535-4c8f-8047-55c8de717fe1/resourceGroups/photo-sharing/providers/Microsoft.Web/sites/photo-sharing-insta",
+  "appService.deploySubpath": "."
+}
