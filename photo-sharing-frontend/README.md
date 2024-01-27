@@ -1,3 +1,33 @@
+# JCapture Frontend
+
+JCapture is a full-stack web application inspired by Instagram, built using React, Tailwind, Apollo Client, and other technologies. The frontend of the application is hosted at [jcapture.azurewebsites.net](http://jcapture.azurewebsites.net).
+
+## Features
+
+JCapture offers a range of features similar to Instagram, including:
+
+- Users can upload posts and images.
+- Users can like and comment on posts.
+- Users can follow other users.
+
+## Installation
+
+To get started with the JCapture frontend, follow these steps:
+
+1. Clone the repository:
+2. Navigate to the jcapture-frontend directory:
+3. Install the dependencies:
+4. Start the development server:
+
+The application will start running at [http://localhost:3000](http://localhost:3000).
+
+## Dependencies
+
+The JCapture frontend uses the following dependencies:
+
+- `@apollo/client`: For integrating with the GraphQL backend.
+- `@fortawesome/fontawesome-svg-core`, `@fortawesome/free-brands-svg-icons`, `@fortawesome/free-regular-svg-icons`, `@fortawesome/free-solid-svg-icons`, `@fortawesome/react-fontawesome`: For icons.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -57,14 +87,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/a
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
