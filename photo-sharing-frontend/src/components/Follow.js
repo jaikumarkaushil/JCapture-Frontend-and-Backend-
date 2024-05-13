@@ -50,7 +50,7 @@ export default function Follow(props) {
                 </a>
             )}
 
-            {!loading && following && (
+            {!loading && !error && following && (
                 <div className="text-xs  font-bold">Following</div>
             )}
         </>
