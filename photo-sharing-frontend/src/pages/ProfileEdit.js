@@ -8,45 +8,41 @@ import Spinner from "../components/Spinner";
 export default function ProfileEdit(props) {
     const [updateUser] = useMutation(UPDATE_USER);
     const [updating, setUpdating] = useState(false);
-    const [name, setName] = useState("");
-    const [username, setUsername] = useState("");
+    const [fullName, setFullName] = useState("");
+    const [userName, setUserName] = useState("");
     const [bio, setBio] = useState("");
     const [website, setWebsite] = useState("");
     const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
-    const { loading, error, data } = useQuery(GET_CURRENT_USER, {
+    const [profileImage, setProfileImage] = useState("");
+    const { loading, error } = useQuery(GET_CURRENT_USER, {
         onCompleted: (data) => {
-            setName(data.me.name);
-            setUsername(data.me.userName);
+            setFullName(data.me.fullName);
+            setUserName(data.me.userName);
             setBio(data.me.bio);
             setWebsite(data.me.website);
             setEmail(data.me.email);
-            setPhone(data.me.phone);
+            setProfileImage(data.me.profileImage);
         },
     });
 
     const submit = async () => {
-        if (!name || !username || !email) {
+        if (!fullName || !userName || !email) {
             toast.error(
-                "You forgot to provide either a name, username or email"
+                "You forgot to provide either a name, userName or email"
             );
             return;
         }
 
-        console.log("name:", name);
-        console.log("username:", username);
-        console.log("email:", email);
         setUpdating(true);
 
         try {
             await updateUser({
                 variables: {
-                    name,
-                    username,
+                    fullName,
+                    userName,
                     bio,
                     website,
-                    email,
-                    phone,
+                    email
                 },
             });
 
@@ -77,23 +73,34 @@ export default function ProfileEdit(props) {
         return "Error...";
     }
 
+    const handleFileUpload = () => {
+        document.getElementById('file-upload-button').click();
+    }
+
+
     return (
         <>
             <div className="flex flex-row">
-                <div className="w-1/3 p-3">
-                    <a className="float-right mr-5" href="">
-                        <img
-                            className="rounded-full"
-                            src={data.me.profileImage}
-                            width="40"
-                        />
-                    </a>
+                <div className="bg-green p-3 rounded flex items-start justify-center">
+                    <img
+                        className="rounded-full"
+                        src={profileImage}
+                        width="40"
+                        alt="profile img"
+                    />
                 </div>
                 <div>
-                    <h1 className="text-2xl">{data.me.userName}</h1>
-                    <a href="#" className="text-sm text-sky-500 font-bold">
+                    <h1 className="text-2xl">{userName}</h1>
+                    <button className="text-sm text-sky-500 font-bold" onClick={handleFileUpload}>
                         Change Profile Photo
-                    </a>
+                    </button>
+                    <input
+                        type="file"
+                        id='file-upload-button'
+                        className="hidden"
+                        accept='.jpeg, .png, .jpg'
+                        onChange={(e) => setProfileImage(e.target.files[0])}
+                    />
                 </div>
             </div>
             <div className="flex flex-row mt-5 items-center">
@@ -107,8 +114,8 @@ export default function ProfileEdit(props) {
                         type="text"
                         className="border p-1 px-3 w-full "
                         placeholder="Name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
                     />
                     <p className="text-gray-400 text-xs">
                         Help people discover your account by using the name
@@ -120,16 +127,16 @@ export default function ProfileEdit(props) {
             <div className="flex flex-row mt-5 items-center">
                 <div className="w-1/3 flex flex-row place-content-end align-center pr-8">
                     <label className="m-0 p-0 align-baseline font-bold flex align-center">
-                        Username
+                        UserName
                     </label>
                 </div>
                 <div className="w-2/3 pr-10">
                     <input
                         type="text"
                         className="border p-1 px-3 w-full"
-                        placeholder="Username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        placeholder="UserName"
+                        value={userName}
+                        onChange={(e) => setUserName(e.target.value)}
                     />
                 </div>
             </div>
@@ -180,7 +187,7 @@ export default function ProfileEdit(props) {
                     />
                 </div>
             </div>
-            <div className="flex flex-row mt-5 items-center">
+            {/* <div className="flex flex-row mt-5 items-center">
                 <div className="w-1/3 flex flex-row place-content-end align-center pr-8">
                     <label className="m-0 p-0 align-baseline font-bold flex align-center">
                         Phone Number
@@ -195,7 +202,7 @@ export default function ProfileEdit(props) {
                         onChange={(e) => setPhone(e.target.value)}
                     />
                 </div>
-            </div>
+            </div> */}
             <div className="flex flex-row mt-5 items-center">
                 <div className="w-1/3 flex flex-row place-content-end align-center pr-8" />
                 <div className="w-2/3 pr-10">

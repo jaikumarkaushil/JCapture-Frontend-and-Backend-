@@ -7,35 +7,32 @@ export default function Login(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-    const [error, setError] = useState();
 
-    const [login] = useMutation(LOGIN, {
+    const [login, { loading, error }] = useMutation(LOGIN, {
         variables: {
             email: email,
             password: password,
-        },
+        }
     });
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-
-        try {
-            const { data } = await login();
-            localStorage.setItem("token", data.authUser.token);
-            navigate("/");
-        } catch (e) {
-            setError(e);
-        }
+        login({
+            onCompleted: (data) => {
+                localStorage.setItem("token", data.authUser.token);
+                navigate("/");
+            }
+        });
     };
 
     return (
         <div className="h-screen bg-gray-50 flex flex-col justify-center items-center">
             <div className="flex flex-column">
-                <div className="pr-10 hidden md:block">
-                    <img src="/images/react-insta.jpg" width="550" alt="phone-img" />
+                <div className="pr-10 hidden md:flex items-center">
+                    <img src="/images/react-insta.png" width="550" alt="phone-img" />
                 </div>
                 <div>
-                    <div className="bg-white border border-gray-300 w-80 pt-10 pb-60 flex items-center flex-col mb-3 relative">
+                    <div className="bg-white border border-gray-300 w-80 pt-10 pb-40 flex items-center flex-col mb-3 relative">
                         <img src="/images/JaiInsta-logo.png" width="200" height="100" alt="logo-img" />
                         <form
                             className="mt-8 w-64 flex flex-col"
@@ -59,13 +56,28 @@ export default function Login(props) {
                             />
                             <button
                                 type="submit"
-                                className="text-sm text-center bg-blue-300 text-white py-1 rounded font-medium"
+                                className="text-sm text-center bg-blue-300 hover:bg-blue-700 text-white py-1 rounded font-medium"
                             >
-                                Sign In
+                                {loading ? "Signing in. Please Wait!" : "Sign in"}
                             </button>
                         </form>
+                        <div className="text-center mt-5">
+                            {loading && <span className="my-3">Loading may take a moment as we rely on free resources. Your patience is appreciated.</span>}
+                            <p>Demo Account Credentials</p>
+                            <p className="mt-3">Email: demo.user@gmail.com</p>
+                            <p>Password: Demouser@1</p>
+                            <p className="mt-3">OR</p>
+                            <p className="mt-3">Click on
+                                <a href="register" className="text-blue-500 text-sm font-semibold ml-1 cursor-pointer">
+                                    Sign up
+                                </a>
+                                <br /> to create your own account
+                            </p>
+
+                        </div>
+
                         <div
-                            className={`text-sm text-center text-red-500 absolute bottom-20 px-8 ${error ? "" : "hidden"
+                            className={`text-sm text-center text-red-500 absolute bottom-20 px-6 ${error ? "" : "hidden"
                                 }`}
                         >
                             You have entered wrong credentials. Please try again!

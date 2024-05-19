@@ -16,7 +16,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ChangePassword from "./pages/ChangePassword";
 import Register from "./pages/Register";
-
 //Add all icons to the library so you can use it in your page
 library.add(fab, fas, far);
 
@@ -26,8 +25,6 @@ export default function App() {
     return (
         <>
             <Routes>
-                <Route path="/accounts/login" exact element={<Login />} />
-                <Route path="/accounts/register" exact element={<Register />} />
                 <Route
                     path="/"
                     exact
@@ -42,6 +39,7 @@ export default function App() {
                 />
                 <Route
                     path="/:username"
+                    exact
                     element={
                         <UserSafeRedirect>
                             <Navbar />
@@ -57,6 +55,7 @@ export default function App() {
                 />
                 <Route
                     path="/accounts"
+                    exact
                     element={
                         <UserSafeRedirect>
                             <Navbar />
@@ -70,6 +69,8 @@ export default function App() {
                     <Route path="edit" element={<ProfileEdit />} />
                     <Route path="password" element={<ChangePassword />} />
                 </Route>
+                <Route path="/accounts/login" exact element={<Login />} />
+                <Route path="/accounts/register" exact element={<Register />} />
             </Routes>
 
             <ModalSettings

@@ -42,6 +42,7 @@ export default function Profile(props) {
                             className="rounded-full"
                             src={data.me.profileImage}
                             width="150"
+                            alt="profile img"
                         />
                     </div>
                     <div className="bg-green p-3 rounded text-gray-600 col-span-2">
@@ -56,7 +57,7 @@ export default function Profile(props) {
                             >
                                 Edit Profile
                             </Link>
-                            <a
+                            <div
                                 className="ml-3 cursor-pointer"
                                 onClick={() =>
                                     props.setIsSettingsModalOpen(true)
@@ -66,7 +67,7 @@ export default function Profile(props) {
                                     icon="gear"
                                     className="text-2xl leading-6"
                                 />
-                            </a>
+                            </div>
                         </div>
                         <div className="flex-row py-5 max-w-sm hidden lg:flex">
                             <div className="basis-1/2 ">
@@ -90,13 +91,13 @@ export default function Profile(props) {
                         <a
                             href={data.me.website}
                             target="_blank"
-                            className="text-blue-900 font-bold"
+                            className="text-blue-900 font-bold" rel="noreferrer"
                         >
                             {data.me.website}
                         </a>
                     </div>
                 </div>
-
+                TODO: Placeholder for stories and highlights
                 <Highlights />
 
                 <ul className="flex flex-row p-2 text-sm items-center	justify-center border-t text-gray-400 h-16 lg:hidden">
@@ -120,8 +121,10 @@ export default function Profile(props) {
                     </li>
                 </ul>
 
+                TODO: Add a video and reels feature in future versions
+
                 <div className="flex flex-row text-2xl lg:text-xs items-center justify-center border-t uppercase text-gray-400 tracking-widest h-16">
-                    <a
+                    <div
                         className={`${activeTab === "posts"
                             ? "text-black border-t border-black"
                             : ""
@@ -132,8 +135,8 @@ export default function Profile(props) {
                         <span className="hidden lg:inline-block ml-2">
                             Posts
                         </span>
-                    </a>
-                    <a
+                    </div>
+                    <div
                         className={`${activeTab === "reels"
                             ? "text-black border-t border-black"
                             : ""
@@ -144,8 +147,8 @@ export default function Profile(props) {
                         <span className="hidden lg:inline-block ml-2">
                             Reels
                         </span>
-                    </a>
-                    <a
+                    </div>
+                    <div
                         className={`${activeTab === "videos"
                             ? "text-black border-t border-black"
                             : ""
@@ -156,8 +159,8 @@ export default function Profile(props) {
                         <span className="hidden lg:inline-block ml-2">
                             Videos
                         </span>
-                    </a>
-                    <a
+                    </div>
+                    <div
                         className={`${activeTab === "saved"
                             ? "text-black border-t border-black"
                             : ""
@@ -168,8 +171,8 @@ export default function Profile(props) {
                         <span className="hidden lg:inline-block ml-2">
                             Saved
                         </span>
-                    </a>
-                    <a
+                    </div>
+                    <div
                         className={`${activeTab === "tagged"
                             ? "text-black border-t border-black"
                             : ""
@@ -180,7 +183,7 @@ export default function Profile(props) {
                         <span className="hidden lg:inline-block ml-2">
                             Tagged
                         </span>
-                    </a>
+                    </div>
                 </div>
 
                 <div className="grid grid-cols-3 gap-1 lg:gap-8">

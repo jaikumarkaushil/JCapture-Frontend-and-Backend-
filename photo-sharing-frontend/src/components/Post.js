@@ -9,6 +9,7 @@ import ADD_COMMENT from "../graphql/ADD_COMMENT";
 import { isLikedByUser } from "../Helpers";
 import ModalPost from "../components/ModalPost";
 import moment from "moment/moment";
+import ModalDialogWrapper from "./ModalDialogWrapper";
 
 const MAX_COMMENTS = 3;
 
@@ -32,62 +33,53 @@ function Post(props) {
     const [isPostModalOpen, setPostModalOpen] = useState(false);
     const [comment, setComment] = useState("");
     const [loading, setLoading] = useState(false);
-    const [addLike] = useMutation(LIKE);
-    const [unlike] = useMutation(UNLIKE);
-    const [addComment] = useMutation(ADD_COMMENT);
+    const [addLike, { loading: likeLoading, error: likeError }] = useMutation(LIKE);
+    const [unlike, { loading: unlikeLoading, error: unlikeError }] = useMutation(UNLIKE);
+    const [addComment, { loading: addCommentLoading, error: addCommentError }] = useMutation(ADD_COMMENT);
 
-    const likePost = async (id) => {
-        try {
-            await addLike({
-                variables: { idPost: id },
-                refetchQueries: [
-                    {
-                        query: GET_FEED,
-                    },
-                ],
-            });
-        } catch (error) {
-            console.log("error:", error);
-        }
+    const likePost = (id) => {
+        setLoading(true)
+        addLike({
+            variables: { idPost: id },
+            refetchQueries: [{
+                query: GET_FEED
+            }],
+            awaitRefetchQueries: true,
+            onCompleted: (data) => {
+                setLoading(false)
+            }
+        });
     };
 
-    const unlikePost = async (id) => {
-        try {
-            await unlike({
-                variables: { idPost: id },
-                refetchQueries: [
-                    {
-                        query: GET_FEED,
-                    },
-                ],
-            });
-        } catch (error) {
-            console.log("error:", error);
-        }
+    const unlikePost = (id) => {
+        setLoading(true)
+        unlike({
+            variables: { idPost: id },
+            refetchQueries: [{
+                query: GET_FEED
+            }],
+            awaitRefetchQueries: true,
+            onCompleted: (data) => {
+                setLoading(false)
+            }
+        });
     };
 
     const createComment = async () => {
         if (!comment) {
             return;
         }
-
-        setLoading(true);
-
-        try {
-            await addComment({
-                variables: { idPost: id, comment },
-                refetchQueries: [
-                    {
-                        query: GET_FEED,
-                    },
-                ],
-            });
-
-            setLoading(false);
-            setComment("");
-        } catch (error) {
-            console.log("error:", error);
-        }
+        setLoading(true)
+        addComment({
+            variables: { idPost: id, comment },
+            refetchQueries: [{
+                query: GET_FEED
+            }],
+            awaitRefetchQueries: true,
+            onCompleted: (data) => {
+                setLoading(false)
+            }
+        });
     };
 
     return (
@@ -98,6 +90,9 @@ function Post(props) {
                 post={post}
                 currentUserId={currentUserId}
             />
+            <ModalDialogWrapper toggleModal={likeLoading || unlikeLoading || addCommentLoading} ><h2>Updating the {addCommentLoading ? "comments" : "likes"}... Please wait!</h2></ModalDialogWrapper>
+            <ModalDialogWrapper toggleModal={likeError || unlikeError || addCommentError}><h2>Unlikelyhood error! Reload the page and try again.</h2></ModalDialogWrapper>
+            {/* <ModalDialogWrapper toggleModal={loading}><h2>Loading feed</h2></ModalDialogWrapper> */}
             <ModalPostActions open={isModalOpen} setOpen={setIsModalOpen} />
             <div className="border border-slate-200 mb-5">
                 <div className="p-3 flex flex-row">

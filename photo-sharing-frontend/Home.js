@@ -111,3 +111,31 @@ export default function Home(props) {
         </main>
     );
 }
+
+
+// import React from 'react';
+// import GET_CURRENT_USER from "../graphql/GET_CURRENT_USER";
+// import { useQuery, useMutation } from "@apollo/client";
+
+
+
+// const Home = () => {
+//     const { loading, error, data } = useQuery(GET_CURRENT_USER);
+//     console.log(data)
+//     return(
+//         <div style={{height: "100vh"}}>
+//             <div className="d-flex flex-column align-items-center justify-content-center">
+//                 <div className="text-center">
+//                     <span className="fa fa-spinner fa-puyarn lse fa-3x fa-fw text-primary"></span>
+//                     <p>Loading . . .</p>
+//                 </div>
+//                 <div className="d-flex flex-row align-items-center justify-content-center mx-auto w-100">
+//                     <img src="images/JaiInsta-Logo.png" alt="Jai-Logo"/>
+//                     <h1 className="light-font">Photo Sharing App</h1>
+//                 </div>
+//             </div>
+//         </div>
+//     )
+// }
+
+// export default Home;

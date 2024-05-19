@@ -15,8 +15,8 @@ export default function Register(props) {
     variables: {
       email: email,
       password: password,
-      userName: userName,
       fullName: fullName,
+      userName: userName
     },
   });
 
@@ -25,7 +25,7 @@ export default function Register(props) {
 
     try {
       const { data } = await register();
-      localStorage.setItem("token", data.authUser.token);
+      localStorage.setItem("token", data.registerUser.token);
       navigate("/");
     } catch (e) {
       setError(e);
@@ -89,7 +89,7 @@ export default function Register(props) {
               className={`text-sm text-center text-red-500 absolute bottom-20 px-8 ${error ? "" : "hidden"
                 }`}
             >
-              You have entered wrong credentials. Please try again!
+              You have entered invalid data. Please try again! {error ? error.message : ""}
             </div>
           </div>
           <div className="bg-white border border-gray-300 text-center w-80 py-4">

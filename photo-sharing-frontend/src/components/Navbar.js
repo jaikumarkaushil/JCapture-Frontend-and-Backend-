@@ -31,13 +31,6 @@ export default function Navbar(props) {
 
     const [files, setFiles] = useState([]);
     const { loading: loadingUser, error, data } = useQuery(GET_CURRENT_USER);
-    // const data = {
-    //     me: {
-    //         id: '6397eea298bd108ae779eed1',
-    //         username: "Jaik1019",
-    //         image: "https://media.istockphoto.com/id/1309328823/photo/headshot-portrait-of-smiling-male-employee-in-office.jpg?b=1&s=170667a&w=0&k=20&c=MRMqc79PuLmQfxJ99fTfGqHL07EDHqHLWg0Tb4rPXQc="
-    //     }
-    // }
     const [logout] = useMutation(LOGOUT);
     const client = useApolloClient();
     const [uploadPost] = useMutation(ADD_POST, {
@@ -152,37 +145,37 @@ export default function Navbar(props) {
                                         <FontAwesomeIcon icon="house" />
                                     </Link>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <a>
                                         <FontAwesomeIcon
                                             icon={["far", "comment-dots"]}
                                         />
                                     </a>
-                                </li>
+                                </li> */}
                                 <li>
-                                    <a
+                                    <div
                                         className="cursor-pointer"
                                         onClick={() => openNewPostModal()}
                                     >
                                         <FontAwesomeIcon
                                             icon={["far", "square-plus"]}
                                         />
-                                    </a>
+                                    </div>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <a className="cursor-pointer">
                                         <FontAwesomeIcon
                                             icon={["far", "compass"]}
                                         />
                                     </a>
-                                </li>
-                                <li>
+                                </li> */}
+                                {/* <li>
                                     <a className="cursor-pointer">
                                         <FontAwesomeIcon
                                             icon={["far", "heart"]}
                                         />
                                     </a>
-                                </li>
+                                </li> */}
                                 <li>
                                     <Menu
                                         as="div"
@@ -231,7 +224,7 @@ export default function Navbar(props) {
                                                     </Menu.Item>
                                                     <Menu.Item>
                                                         {({ active }) => (
-                                                            <a
+                                                            <div
                                                                 className={classNames(
                                                                     active
                                                                         ? "bg-gray-100 text-gray-900"
@@ -244,7 +237,7 @@ export default function Navbar(props) {
                                                                     className="mr-3"
                                                                 />
                                                                 Saved
-                                                            </a>
+                                                            </div>
                                                         )}
                                                     </Menu.Item>
                                                     <Menu.Item>
@@ -270,7 +263,7 @@ export default function Navbar(props) {
                                                 <div className="py-1">
                                                     <Menu.Item>
                                                         {({ active }) => (
-                                                            <a
+                                                            <div
                                                                 className={classNames(
                                                                     active
                                                                         ? "bg-gray-100 text-gray-900"
@@ -286,7 +279,7 @@ export default function Navbar(props) {
                                                                 }
                                                             >
                                                                 Log Out
-                                                            </a>
+                                                            </div>
                                                         )}
                                                     </Menu.Item>
                                                 </div>
