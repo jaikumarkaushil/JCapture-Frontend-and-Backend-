@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="//js.jotform.com/JotFormCustomWidget.min.js"></script>
+  </head>
+  <body>
+    <div id="main">
+      <h3>Resource Booking</h3>
+      <label for="resourceDropdown">Select Resource:</label>
+      <select id="resourceDropdown">
+        <option value="">Loading resources...</option>
+      </select>
+    </div>
+
+    <script type="text/javascript">
+      const API_URL = 'https://hubottawa.spaces.nexudus.com/en/bookings/search?calculatePrice=true';
+
+      // Function to fetch resources
+      async function fetchResources() {
+        try {
+          const response = await fetch(API_URL, { method: 'POST' });
+          const data = await response.json();
+
+          const dropdown = document.getElementById('resourceDropdown');
+          dropdown.innerHTML = ''; // Clear existing options
+
+          if (data && data.Items && data.Items.length > 0) {
+            data.Items.forEach(item => {
+              const option = document.createElement('option');
+              option.value = item.ResourceId;
+              option.text = `${item.Name} - $${item.Price}`;
+              dropdown.appendChild(option);
+            });
+          } else {
+            dropdown.innerHTML = '<option value="">No resources available</option>';
+          }
+        } catch (error) {
+          console.error('Error fetching resources:', error);
+          document.getElementById('resourceDropdown').innerHTML = '<option value="">Error loading resources</option>';
+        }
+      }
+
+      // Fetch resources when the widget is ready
+      JFCustomWidget.subscribe('ready', function() {
+        fetchResources();
+      });
+
+      // Handle form submission
+      JFCustomWidget.subscribe('submit', function() {
+        const selectedResource = document.getElementById('resourceDropdown').value;
+        const message = {
+          valid: selectedResource !== '',
+          value: selectedResource
+        };
+        JFCustomWidget.sendSubmit(message);
+      });
+    </script>
+  </body>
+</html>
