@@ -22,21 +22,28 @@
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
-              'Accept': '*', // Added Accept header
+              'Accept': '*',
             },
           });
-
+      
           const data = await response.json();
           const dropdown = document.getElementById('resourceDropdown');
           dropdown.innerHTML = ''; // Clear existing options
-
-          if (data && data.Items && data.Items.length > 0) {
-            data.Items.forEach(item => {
-              const option = document.createElement('option');
-              option.value = item.ResourceId;
-              option.text = `${item.Name} - $${item.Price}`;
-              dropdown.appendChild(option);
-            });
+      
+          if (data && data.Resources && data.Resources.length > 0) {
+            // Filter available resources
+            const availableResources = data.Resources.filter(resource => resource.IsAvailable);
+      
+            if (availableResources.length > 0) {
+              availableResources.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item.Id;
+                option.text = `${item.Name} - $${item.Price}`;
+                dropdown.appendChild(option);
+              });
+            } else {
+              dropdown.innerHTML = '<option value="">No available resources</option>';
+            }
           } else {
             dropdown.innerHTML = '<option value="">No resources available</option>';
           }
@@ -45,6 +52,7 @@
           document.getElementById('resourceDropdown').innerHTML = '<option value="">Error loading resources</option>';
         }
       }
+
 
       // Fetch resources when the widget is ready
       JFCustomWidget.subscribe('ready', function() {
