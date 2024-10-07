@@ -15,12 +15,18 @@
     <script type="text/javascript">
       const API_URL = 'https://hubottawa.spaces.nexudus.com/en/bookings/search?calculatePrice=true';
 
-      // Function to fetch resources
+      // Function to fetch resources using GET request
       async function fetchResources() {
         try {
-          const response = await fetch(API_URL, { method: 'GET' });
-          const data = await response.json();
+          const response = await fetch(API_URL, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': '*', // Added Accept header
+            },
+          });
 
+          const data = await response.json();
           const dropdown = document.getElementById('resourceDropdown');
           dropdown.innerHTML = ''; // Clear existing options
 
